@@ -38,6 +38,6 @@ int main()
 	calling(1, std::string("Hello"));
 	calling(1, "Hello"); // string literal converts to string variable
 	calling(1, 2, 3.14, "Goodbye");
-	//  callit(1, 2, 3); // compile fails because there is no matching function
-	//  callit(std::string("Hello")); // compile fails because there is no matching function
+	//  calling(1, 2, 3); // compile fails because there is no matching function
+	//  calling(std::string("Hello")); // compile fails because there is no matching function
 }
