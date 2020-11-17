@@ -1,4 +1,4 @@
-#pragma once
+//auther :olcay atabey
 
 #ifndef COIN_MONEY.H
 
