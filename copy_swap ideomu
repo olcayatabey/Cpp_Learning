@@ -1,4 +1,6 @@
-
+#include<iostream>
+#include<vector>
+//@auther olcay atabey
 template<typename T>
 void swap(T &x, T &y)
 {
