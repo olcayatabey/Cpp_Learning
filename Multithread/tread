@@ -14,21 +14,19 @@ Basic usage
 #include <iostream>
 using namespace std;
 
-void action() {
-    cout << "Hello ";
+void foo() {
+    cout << "Hello Thread ";
     cout << this_thread::get_id();
-    cout << " thread" << endl;
+    cout << " c plus plus thread" << endl;
 }
 
 int main() {
-    thread t(action);
+    thread t(foo);
     // can do other stuff here
     t.join();
     return 0;
 }
-$> g++ 01_hello.cpp –lpthread
-$> ./a.out
-Hello 47082117789440 thread
+
 What to pass to std::thread?
 Any callable, like:
 
