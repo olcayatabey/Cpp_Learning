@@ -1,0 +1,98 @@
+std::thread
+Thread - std::thread
+The thread is an object
+#include <thread>
+std::thread
+The most important operations:
+constructor - starts a thread
+get_id()
+join()
+detach()
+joinable()
+Basic usage
+#include <thread>
+#include <iostream>
+using namespace std;
+
+void action() {
+    cout << "Hello ";
+    cout << this_thread::get_id();
+    cout << " thread" << endl;
+}
+
+int main() {
+    thread t(action);
+    // can do other stuff here
+    t.join();
+    return 0;
+}
+$> g++ 01_hello.cpp –lpthread
+$> ./a.out
+Hello 47082117789440 thread
+What to pass to std::thread?
+Any callable, like:
+
+Function
+Functor (function object) - an object with operator()
+Lambda expression
+std::function
+Pointer to a function or pointer to a member function
+The callable is copied to the memory area belonging to the newly created thread
+
+What to pass to std::thread?
+struct Bar {
+    void operator()() {
+        std::cout << "Hello world\n";
+    }
+}
+
+void foo() {
+    std::cout << "Hello world\n";
+}
+
+int main() {
+    std::thread t1(foo);
+    Bar bar;
+    std::thread t2(bar);
+    std::thread t3([]() {
+        std::cout << "Hello world\n";
+    });
+    t1.join();
+    t2.join();
+    t3.join();
+}
+void foo() {
+    std::cout << "Hello world\n";
+}
+
+class Bar {
+public:
+    void foo() {
+        std::cout << "Hello world\n";
+    }
+};
+
+int main() {
+    std::thread t(&foo);
+    t.join();
+
+    Bar bar;
+    std::thread t1(&Bar::foo, &bar);
+    t1.join();
+    return 0;
+}
+Empty threads (Not-A-Thread)
+Threads are started immediately after their creation, as long as we pass the so-called thread of execution or callable (function, functor, lambda). They are related to system threads.
+Threads are pinned to their variable in the thread that created it. Creating an empty thread std::thread t; does not start anything.
+An empty thread (Not-A-Thread) is not associated with any system thread and join() or detach() can't be called on it
+Empty threads (Not-A-Thread)
+#include <thread>
+#include <iostream>
+using namespace std;
+
+int main() {
+    thread t;
+    t.join();   // not allowed on an empty thread
+    t.detach(); // not allowed on an empty thread
+    return 0;
+}
