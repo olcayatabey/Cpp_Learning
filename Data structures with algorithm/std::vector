@@ -1,0 +1,86 @@
+#include <algorithm>
+#include <vector>
+#include<iostream>
+
+template<typename T>
+void PrintVector(const std::vector<T>&vec)
+{
+	for (const auto v : vec)
+	{
+		std::cout << v << " ";
+	}
+	std::cout << "\n";
+}
+
+int main()
+{
+	std::vector<int>ivec;
+	// Initialize a vector
+	//vector<int> ivec = { 35, 41, 55,5 };
+
+	// or use the following code:
+	
+	ivec.push_back(35);
+	ivec.push_back(41);
+	ivec.push_back(55);
+	ivec.push_back(5);
+	
+
+	// Print the current ivec
+	std::cout << "Elements of ivec:" << "\n";
+	PrintVector(ivec);
+
+	// Get item's value based on the index
+	int i = ivec.at(1); //if invalid index throw exception(out_of_range)
+	int j = ivec[0];
+
+	// Initialize an iterator
+	std::vector<int>::iterator itr;
+
+	// Insert an item to the first position
+	itr =ivec.begin();
+	ivec.insert(itr, 42);
+
+	// Print the ivec
+	std::cout << "ivec after inserting an item:" << "\n";
+	PrintVector(ivec);
+	std::cout << "\n";
+
+	// Insert an item to the last position
+	itr = ivec.end();
+	ivec.insert(itr, 37);
+
+	// Print the ivec
+	std::cout << "ivec after inserting an item:" << "\n";
+	PrintVector(ivec);
+	std::cout << "\n";
+
+	// Insert an item to the 4th position
+	itr = ivec.begin();
+	ivec.insert(itr + 3, 67);
+
+	// Print the ivec
+	std::cout << "ivec after inserting an item:" << "\n";
+	PrintVector(ivec);
+	std::cout << "\n";
+
+	// Search 41 element
+	// It should be found
+	itr = find(ivec.begin(), ivec.end(), 41);
+	if (itr != ivec.end())
+		std::cout << "Element found in ivec: " << *itr;
+	else
+		std::cout << "Element not found in ivec";
+	std::cout << "\n" << "\n";
+
+	// Remove the 2nd element
+	itr = ivec.begin();
+	ivec.erase(itr + 1);
+
+	// Print the ivec
+	std::cout << "ivec after removing an item:" << "\n";
+	PrintVector(ivec);
+	std::cout << "\n";
+
+	return 0;
+}
