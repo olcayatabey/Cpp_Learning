@@ -1,0 +1,20 @@
+#include <string>
+#include <iostream>
+#include<queue>
+
+int main() {
+	std::string toConvert{ "today i have bad news\n" };
+
+	std::queue<char>converted;
+	for (int i{}; i < toConvert.size(); ++i)
+	{
+		converted.push(toupper(toConvert[i]));
+	}
+
+	for (int i{}; i < toConvert.size(); i++)
+	{
+		std::cout << converted.front();
+		converted.pop();
+	}
+	return 0;
+}
