@@ -7,13 +7,13 @@ bool is_palindrome(std::string& str)
     {
         if (str[i] == str[(str.size() - 1) - i])
         {
-            std::cout << " the string is a " << str << "\n";
+            std::cout << " This the string is a " << str << "\n";
             return true;
         }
 
         else
         {
-            std::cout << str << " is not a palindrome\n";
+            std::cout << str << " This is not a palindrome string.\n";
             return false;
         }
     }
