@@ -1,21 +1,19 @@
 #include <string>
 #include <iostream>
 
-
-
-bool is_polindrome(std::string& str)
+bool is_palindrome(std::string& str)
 {
     for (int i{}; i <( str.size()-1)/2; i++)
     {
         if (str[i] == str[(str.size() - 1) - i])
         {
-            std::cout << " the string is polindrome " << str << "\n";
+            std::cout << " the string is a " << str << "\n";
             return true;
         }
 
         else
         {
-            std::cout << str << " is not a polindrome\n";
+            std::cout << str << " is not a palindrome\n";
             return false;
         }
     }
@@ -26,6 +24,6 @@ int main() {
    std::string str;
    std::cout << "enter the string : ";
    std:: getline(std::cin, str);
-   is_polindrome(str);
+   is_palindrome(str);
        
 }
