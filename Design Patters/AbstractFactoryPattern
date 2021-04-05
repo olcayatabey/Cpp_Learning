@@ -1,0 +1,144 @@
+#include <iostream>
+
+//Door object
+class Door
+{
+public:
+	Door(){}
+
+	virtual void openDoor() = 0;
+	
+};
+
+class AudiDoor :public Door
+{
+public:
+	AudiDoor()
+	{
+		std::cout << "Making a door for a audi\n";
+	}
+	void openDoor()
+	{
+		std::cout << "Click\n";
+	}
+};
+class BmwDoor :public Door
+{public:
+
+	BmwDoor()
+	{
+		std::cout << "Making a door for a Bmw\n";
+	}
+	void openDoor()
+	{
+		std::cout << "Tik tak\n";
+	}
+};
+
+//Car object
+class Car {
+protected:
+	char pname[20];
+public:
+	Car()
+	{
+		strcpy_s(pname, "");
+	}
+	virtual void run() = 0;
+};
+
+class Audi :public Car
+{
+public:
+	Audi()
+	{
+		strcpy_s(pname, "Audi");
+	}
+	void run()
+	{
+		std::cout << pname << " product is selected\n";
+	}
+};
+
+class Bmw :public Car
+{public:
+	Bmw()
+	{
+		strcpy_s(pname, "Bmw");
+	}
+	void run()
+	{
+		std::cout << pname << " product is selected\n";
+	}
+};
+
+//faktory
+
+class CarFaktory
+{
+public :
+	virtual Car* carBuilder() = 0;
+	virtual Door* doorBuilder() = 0;
+};
+class AudiCarBuilder :public CarFaktory
+{
+public:
+	Door* doorBuilder()
+	{
+		return new AudiDoor();
+	}
+	Car* carBuilder()
+	{
+		return new Audi();
+	}
+
+};
+class BmwCarBuilder :public CarFaktory
+{
+public:
+	Door* doorBuilder()
+	{
+		return new BmwDoor();
+	}
+	Car* carBuilder()
+	{
+		return new Bmw();
+	}
+};
+
+
+
+
+int main()
+{
+	CarFaktory *newcar;
+	int choice;
+	std::cout << "please select your car\n";
+	std::cout << "1 Audi\n 2 Bmw\n";
+	std::cout << "Selection\n";
+	std::cin >> choice;
+	switch (choice)
+	{
+	case 1:
+		newcar = new AudiCarBuilder;
+		break;
+	case 2:
+		newcar= new BmwCarBuilder;
+		break;
+
+
+	default:
+		std::cout << " Invalid car builder selecion\n";
+		newcar = nullptr;
+		break;
+	}
+	if (newcar != nullptr)
+	{
+		Car* mycar = newcar->carBuilder();
+		Door* mydoor = newcar->doorBuilder();
+		mycar->run();
+		mydoor->openDoor();
+
+	}
+
+}
