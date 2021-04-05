@@ -1,0 +1,73 @@
+#include<iostream>
+
+class Coffee
+{
+protected:
+	char _type[15];
+public:
+	Coffee(){}
+	char *getCoffee()
+	{
+		return _type;
+	}
+};
+
+class Expresso :public Coffee
+{
+public:
+	Expresso() :Coffee()
+	{
+		strcpy_s(_type, "Expresso");
+		std::cout << " \n Making a cup of Expresso\n";
+		std::cout << "Grind and brew one scoop of Expresso beans\n ";
+	}
+};
+class Amaricano :public Coffee
+{
+public:
+	Amaricano() :Coffee()
+	{
+		strcpy_s(_type,"Amaricano");
+		std::cout << " \n Making a cup of Amaricano\n";
+		std::cout << "Grind and brew one scoop of Amaricano beans\n ";
+		std::cout << " Hot water with double shut Expresso\n ";
+
+	}
+};
+
+class CoffeeMakerFactory
+{
+private:
+	Coffee* _coffeee;
+public:
+	Coffee* getCoffee()
+	{
+		int choice;
+		std::cout << "Please select type your coffee\n";
+		std::cout << " 1: Expresso\n 2: Amaricano\n";
+		std::cout << "Your selectioan :\n";
+		std::cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			return new Expresso;
+		case 2:
+			return new Amaricano;
+		default:
+			std::cout << "Invalid selaction\n";
+			break;
+		}
+		
+	}
+
+};
+
+int main()
+{
+	CoffeeMakerFactory coffeeMachine;
+	Coffee* cup;
+	cup =coffeeMachine.getCoffee();
+
+	std::cout << "you have asked a(n) " << cup->getCoffee() << "\n";
+
+}
