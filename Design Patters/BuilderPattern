@@ -1,0 +1,207 @@
+#include<iostream>
+
+class Entree {
+protected:
+	char _entree[20];
+public:
+	const char* getEntree()
+	{
+		return _entree;
+	}
+};
+
+//Public derived class
+class Burger :public Entree
+{
+public:
+	Burger()
+	{
+		std::cout << "Your Meat burger is ready with tomatoes and place them in a bun\n";
+		strcpy_s(_entree, "Hamburger");
+	}
+};
+
+class Hotdog :public Entree
+{
+public:
+	Hotdog()
+	{
+		std::cout << "Your choice is Hotdog with kecthup and bitter sauce\n";
+		strcpy_s(_entree, "Hotdog ");
+
+	}
+};
+// Base Side class
+class Side {
+protected:
+	char _mside[20];
+public:
+	const char *getSide()
+	{
+		return _mside;
+	}
+};
+//Derived Side class
+class Potatoes:public Side
+{
+public:
+	Potatoes()
+	{
+		std::cout << "Your choice is fried potatoes\n";
+		strcpy_s(_mside, "Potatoes");
+	}
+
+};
+class Salad :public Side
+{
+public:
+	Salad()
+	{
+		std::cout << " Your choice is green salad\n";
+		strcpy_s(_mside, "Salad ");
+	}
+};
+
+class Drink
+{
+protected:
+	char _drink[10];
+public:
+	Drink()
+	{
+		std::cout << "\n Fill cup with Cola\n";
+		strcpy_s(_drink, "Cola");
+	}
+	char* getDrink()
+	{
+		return _drink;
+	}
+};
+class MealBag
+{
+private:
+	char _bag[100];
+	Entree * entree;
+	Side* side;
+	Drink* drink;
+
+public:
+	MealBag(const char* type)
+	{
+		sprintf_s(_bag, "\n %s meal combo:", type);
+	}
+	void setEntree(Entree* e)
+	{
+		entree = e;
+	}
+	void setSide(Side* s)
+	{
+		side = s;
+	}
+	void setDrink(Drink* d)
+	{
+		drink = d;
+	}
+	const char* openMealBag()
+	{
+		sprintf_s(_bag, "%s %s, %s, %s", _bag, entree->getEntree(), side->getSide(), drink->getDrink());
+		return _bag;
+	}
+};
+
+//******************//
+class MealBuilder
+{
+protected:
+	MealBag *_meal;
+public:
+	virtual void cookEntree() {};
+	virtual void cookSide() {};
+	virtual void fillDrink() {};
+	MealBag* getMeal()
+	{
+		return _meal;
+	}
+
+};
+class HotdogMeal : public MealBuilder
+{
+public:
+	HotdogMeal()
+	{
+		_meal = new MealBag("Hotdog");
+	}
+	void cookEntree()
+	{
+		Hotdog* hotdog = new Hotdog;
+		_meal->setEntree(hotdog);
+	}
+	void cookSide()
+	{
+		Salad* caesar = new Salad;
+		_meal->setSide(caesar);
+	}
+	void fillDrink()
+	{
+		Drink* drink = new Drink;
+		_meal->setDrink(drink);
+	}
+};
+class BurgerMeal : public MealBuilder
+{
+public:
+	BurgerMeal()
+	{
+		_meal = new MealBag("Burger");
+	}
+	void cookEntree()
+	{
+		Burger* burger = new Burger;
+		_meal->setEntree(burger);
+	}
+	void cookSide()
+	{
+		Potatoes* fries = new Potatoes;
+		_meal->setSide(fries);
+	}
+	void fillDrink()
+	{
+		Drink* drink = new Drink;
+		_meal->setDrink(drink);
+	}
+};
+
+int main()
+{
+	MealBuilder* mymenu = new MealBuilder;
+	MealBag *mybag;
+	int choice;
+	// Prompt user for their meal choice
+	std::cout << "Select a meal:\n " ;
+	std::cout << "1: Hamburger Meal \n";
+	std::cout << "2: Hotdog Meal\n";
+	std::cout << "Selection: ";
+	std::cin >> choice;
+	std::cout << std::endl;
+
+	switch (choice)
+	{
+	case 1:
+		mymenu = new BurgerMeal;
+		break;
+	case 2:
+		mymenu = new HotdogMeal;
+		break;
+	default:
+		std::cout << "Invalid selection\n";
+		mymenu = nullptr;
+		break;
+	}
+
+
+	// Build the complex object
+	mymenu->cookEntree();
+	mymenu->cookSide();
+	mymenu->fillDrink();
+
+}
