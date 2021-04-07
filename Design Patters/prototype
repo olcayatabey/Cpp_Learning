@@ -1,0 +1,117 @@
+#include<iostream>
+#include<string>
+
+
+// Abstract Animal class
+class Animal
+{
+protected:
+	 std::string _mname{};
+	int _hairLength, _tail, _weight, _height, _age;
+	int _intelligence, _stubbornness, _agressiveness;
+
+public:
+
+
+	int setHairLength(int length)
+	{
+		_hairLength = length;
+		return _hairLength;
+	}
+
+	void setHairColor( std::string color)
+	{
+		color = _mname;
+			
+	}
+
+	void setTail(int length)
+	{
+		_tail = length;
+	}
+
+	void setWeight(int kg)
+	{
+		_weight = kg;
+	}
+
+	void setHeight(int m)
+	{
+		_height = m;
+	}
+
+	void setAge(int age)
+	{
+		_age = age;
+	}
+
+};
+
+// Derived Sheep class
+class Sheep : public Animal
+{
+public:
+	Sheep()
+	{
+		_hairLength = 3;
+		_stubbornness = 5;
+		_agressiveness = 9;
+		_intelligence = 7;
+	}
+	Sheep* clone()
+	{
+		return new Sheep(*this);
+	}
+	void shearing()
+	{
+		_agressiveness -= 2;
+	}
+};
+
+// Derived Cow class
+class Cow : public Animal
+{
+public:
+	Cow()
+	{
+		_stubbornness = 7;
+		_agressiveness = 5;
+		_intelligence = 8;
+	}
+	Cow* clone()
+	{
+		return new Cow(*this);
+	}
+
+};
+
+int main()
+{
+	Sheep* sheep1 = new Sheep;
+	sheep1->setHairColor("Black");
+	sheep1->setAge(12);
+	sheep1->setHairLength(42);
+	sheep1->setHeight(99);
+	sheep1->setTail(25);
+	sheep1->setWeight(1000);
+	//********
+	Cow* cow = new Cow;
+	cow->setAge(1);
+	cow->setHairColor("Red");
+	cow->setHairLength(10);
+	cow->setTail(50);
+	cow->setWeight(75);
+	cow->setHeight(55);
+
+	//********
+	Animal *farm[3];
+	farm[0] = sheep1->clone();
+	farm[1] = cow->clone();
+
+	sheep1->shearing();
+	farm[1]->setAge(77);
+	farm[2] = sheep1->clone();
+
+
+
+}
