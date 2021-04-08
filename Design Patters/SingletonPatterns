@@ -1,0 +1,35 @@
+#include<iostream>
+
+
+class Singleton
+{private:
+	static Singleton* _instance;
+	Singleton()
+	{
+		std::cout << "Singleton design patterns\n";
+	}
+public:
+	static Singleton* getInstance()
+	{
+		if (_instance == nullptr)
+		{
+			_instance= new Singleton;
+		}
+		return _instance;
+	}
+	void saySomething()
+	{
+		std::cout << "Meaning of the life is 42\n";
+	}
+};
+
+Singleton* Singleton::_instance = nullptr;
+
+int main()
+{
+	Singleton* exSingleton = exSingleton->getInstance();
+	exSingleton->saySomething();
+	//*******
+	Singleton::getInstance()->saySomething();
+
+}
