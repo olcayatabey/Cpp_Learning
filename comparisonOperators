@@ -1,0 +1,32 @@
+ Comparison operators
+== and !=
+> and <
+>= and <=
+The recommended way to overload all those operators is by implementing only 2 operators (== and <) and then
+using those to define the rest. 
+Overloading outside of class/struct:
+//Only implement those 2
+
+bool operator==(const T& lhs, const T& rhs) { /* Compare */ }
+bool operator<(const T& lhs, const T& rhs) { /* Compare */ }
+
+//Now you can define the rest
+bool operator!=(const T& lhs, const T& rhs) { return !(lhs == rhs); }
+bool operator>(const T& lhs, const T& rhs) { return rhs < lhs; }
+bool operator<=(const T& lhs, const T& rhs) { return !(lhs > rhs); }
+bool operator>=(const T& lhs, const T& rhs) { return !(lhs < rhs); }
+
+Overloading inside of class/struct:
+
+//Note that the functions are const, because if they are not const, you wouldn't be able
+//to call them if the object is const
+
+//Only implement those 2
+bool operator==(const T& rhs) const { /* Compare */ }
+bool operator<(const T& rhs) const { /* Compare */ }
+
+//Now you can define the rest
+bool operator!=(const T& rhs) const { return !(*this == rhs); }
+bool operator>(const T& rhs) const { return rhs < *this; }
+bool operator<=(const T& rhs) const { return !(*this > rhs); }
+bool operator>=(const T& rhs) const { return !(*this < rhs); }
